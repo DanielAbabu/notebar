@@ -1,0 +1,49 @@
+{
+  "name": "notebar",
+  "private": true,
+  "version": "1.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port=3000 --host=0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview",
+    "clean": "rm -rf dist",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@tailwindcss/typography": "^0.5.19",
+    "@tailwindcss/vite": "^4.1.14",
+    "@tiptap/extension-code-block-lowlight": "^3.30.1",
+    "@tiptap/extension-image": "^3.30.1",
+    "@tiptap/extension-link": "^3.29.2",
+    "@tiptap/extension-placeholder": "^3.29.2",
+    "@tiptap/extension-task-item": "^3.29.2",
+    "@tiptap/extension-task-list": "^3.29.2",
+    "@tiptap/pm": "^3.29.2",
+    "@tiptap/react": "^3.29.2",
+    "@tiptap/starter-kit": "^3.29.2",
+    "@vitejs/plugin-react": "^5.0.4",
+    "date-fns": "^4.4.0",
+    "lowlight": "^3.3.0",
+    "lucide-react": "^0.546.0",
+    "motion": "^12.23.24",
+    "perfect-freehand": "^1.2.3",
+    "react": "^19.0.0",
+    "react-colorful": "^5.8.0",
+    "react-dom": "^19.0.0",
+    "sonner": "^2.0.8",
+    "vite": "^6.2.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.1.37",
+    "@types/node": "^22.14.0",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "autoprefixer": "^10.4.21",
+    "jsdom": "^30.0.1",
+    "tailwindcss": "^4.1.14",
+    "typescript": "~5.8.2",
+    "vite": "^6.2.0"
+  }
+}
