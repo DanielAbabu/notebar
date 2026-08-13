@@ -1,0 +1,30 @@
+{
+    "manifest_version": 3,
+    "name": "NoteBar",
+    "version": "1.1.0",
+    "description": "A premium, minimalist side panel for notes, tasks, and quick sketches. Capture ideas, organize to-dos, sketch on a canvas, and customize themes with ease.",
+    "action": {
+        "default_icon": {
+            "16": "icons/icon16.png",
+            "48": "icons/icon48.png",
+            "128": "icons/icon128.png"
+        },
+        "default_title": "Open NoteBar"
+    },
+    "icons": {
+        "16": "icons/icon16.png",
+        "48": "icons/icon48.png",
+        "128": "icons/icon128.png"
+    },
+    "permissions": [
+        "sidePanel",
+        "storage",
+        "unlimitedStorage"
+    ],
+    "side_panel": {
+        "default_path": "index.html"
+    },
+    "background": {
+        "service_worker": "background.js"
+    }
+}
