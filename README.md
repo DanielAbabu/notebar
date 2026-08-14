@@ -1,6 +1,6 @@
 # 📝 NoteBar
 
-![NoteBar Banner](./notebar_banner_modern_1772906838721.png)
+![NoteBar Banner](public/images/1.png)
 
 <p align="center">
   <img src="https://img.shields.io/badge/React-19-blue?logo=react&logoColor=white" alt="React 19" />
