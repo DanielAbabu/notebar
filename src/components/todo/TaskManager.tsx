@@ -62,23 +62,27 @@ export function TaskManager({ tasks, toggleTask, onOpenAddModal, onEditTask, onD
                                             <div className="flex-1 min-w-0">
                                                 <span className="block text-sm font-medium theme-text truncate">{task.text}</span>
                                                 {task.dueDate && (() => {
-                                                    const today = new Date();
-                                                    today.setHours(0, 0, 0, 0);
-
-                                                    const parts = task.dueDate.split('-');
-                                                    const due = parts.length === 3
-                                                        ? new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10))
-                                                        : new Date(task.dueDate);
-                                                    due.setHours(0, 0, 0, 0);
-
-                                                    const isOverdue = due < today;
-                                                    const isToday = due.getTime() === today.getTime();
+                                                    const due = new Date(task.dueDate);
+                                                    const now = new Date();
+                                                    
+                                                    const isOverdue = due < now;
+                                                    
+                                                    const todayStart = new Date(now);
+                                                    todayStart.setHours(0, 0, 0, 0);
+                                                    const todayEnd = new Date(now);
+                                                    todayEnd.setHours(23, 59, 59, 999);
+                                                    const isToday = due >= todayStart && due <= todayEnd;
+                                                    
+                                                    const hasTime = task.dueDate.includes('T');
+                                                    const displayDate = hasTime 
+                                                        ? due.toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true })
+                                                        : due.toLocaleDateString([], { month: 'short', day: 'numeric' });
 
                                                     return (
                                                         <span className={`flex items-center gap-1 text-[10px] mt-1 ${isOverdue ? 'text-red-500 font-bold' : isToday ? 'text-amber-500 font-bold' : 'theme-text-muted'}`}>
                                                             {isOverdue ? <AlertCircle className="w-3 h-3" /> : <Calendar className="w-3 h-3" />}
                                                             {isOverdue ? 'Overdue: ' : isToday ? 'Due Today: ' : 'Due: '}
-                                                            {due.toLocaleDateString()}
+                                                            {displayDate}
                                                         </span>
                                                     );
                                                 })()}

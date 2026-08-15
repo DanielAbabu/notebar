@@ -3,6 +3,9 @@
 ![NoteBar Banner](public/images/1.png)
 
 <p align="center">
+  <a href="https://chromewebstore.google.com/detail/cilnoeoidokldchckigcohjgdfhmmehp?utm_source=item-share-cb" target="_blank">
+    <img src="https://img.shields.io/badge/Available_in-Chrome_Web_Store-4285F4?logo=google-chrome&logoColor=white" alt="Available in Chrome Web Store" />
+  </a>
   <img src="https://img.shields.io/badge/React-19-blue?logo=react&logoColor=white" alt="React 19" />
   <img src="https://img.shields.io/badge/TypeScript-5.x-blue?logo=typescript&logoColor=white" alt="TypeScript" />
   <img src="https://img.shields.io/badge/Tailwind--CSS-4.x-38B2AC?logo=tailwind-css&logoColor=white" alt="Tailwind 4" />

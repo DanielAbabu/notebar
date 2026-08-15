@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { X, Calendar } from 'lucide-react';
+import { X, Calendar, Bell } from 'lucide-react';
 import { Modal } from '../common/Modal';
 import { Task } from '../../types';
 
 interface TaskModalProps {
     onClose: () => void;
-    onSave: (data: { text: string, priority: 'HIGH' | 'MED' | 'LOW', dueDate?: string }) => void;
+    onSave: (data: { text: string, priority: 'HIGH' | 'MED' | 'LOW', dueDate: string, hasReminder: boolean }) => void;
     initialData?: Task;
 }
 
@@ -15,12 +15,16 @@ interface TaskModalProps {
 export function TaskModal({ onClose, onSave, initialData }: TaskModalProps) {
     const [text, setText] = useState(initialData?.text || '');
     const [priority, setPriority] = useState<'HIGH' | 'MED' | 'LOW'>(initialData?.priority || 'MED');
-    const [dueDate, setDueDate] = useState(initialData?.dueDate || '');
+    const defaultDate = new Date();
+    const defaultDateStr = new Date(defaultDate.getTime() - defaultDate.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+
+    const [dueDate, setDueDate] = useState(initialData?.dueDate || defaultDateStr);
+    const [hasReminder, setHasReminder] = useState(initialData !== undefined ? !!initialData.hasReminder : true);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        if (text.trim()) {
-            onSave({ text, priority, dueDate });
+        if (text.trim() && dueDate) {
+            onSave({ text, priority, dueDate, hasReminder });
             onClose();
         }
     };
@@ -72,18 +76,34 @@ export function TaskModal({ onClose, onSave, initialData }: TaskModalProps) {
                         <div className="relative">
                             <Calendar className="absolute left-3.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 theme-text-muted" />
                             <input
-                                type="date"
+                                type="datetime-local"
+                                required
                                 value={dueDate}
                                 onChange={(e) => setDueDate(e.target.value)}
                                 className="w-full theme-card border theme-border rounded-xl py-2.5 pl-10 pr-4 text-sm focus:outline-none focus:border-theme-text/30 theme-text"
                             />
                         </div>
                     </div>
-                </div>
 
+                    <div className="flex items-center justify-between p-3 mt-2 rounded-xl theme-card border theme-border">
+                        <div className="flex items-center gap-2 cursor-pointer select-none" onClick={() => setHasReminder(!hasReminder)}>
+                            <Bell className={`w-4 h-4 ${hasReminder ? 'theme-text' : 'theme-text-muted opacity-50'}`} />
+                            <label className="text-[10px] font-bold theme-text-muted uppercase tracking-widest cursor-pointer">
+                                Desktop Reminder
+                            </label>
+                        </div>
+                        <button 
+                            type="button" 
+                            onClick={() => setHasReminder(!hasReminder)}
+                            className={`w-9 h-5 rounded-full relative transition-colors ${hasReminder ? 'bg-theme-text' : 'bg-black/10 dark:bg-white/10'}`}
+                        >
+                            <span className={`absolute top-0.5 left-0.5 w-4 h-4 rounded-full transition-transform ${hasReminder ? 'bg-theme-bg translate-x-4' : 'bg-white/50 translate-x-0'}`} />
+                        </button>
+                    </div>
+                    </div>
                 <button
                     type="submit"
-                    disabled={!text.trim()}
+                    disabled={!text.trim() || !dueDate}
                     className="w-full h-11 rounded-xl bg-theme-text text-theme-bg text-sm font-bold hover:opacity-90 transition-all disabled:opacity-50 shadow-lg shadow-black/5"
                 >
                     {initialData ? 'Save Changes' : 'Create Task'}

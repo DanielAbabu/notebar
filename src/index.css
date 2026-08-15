@@ -123,6 +123,18 @@
     --tw-prose-th-borders: var(--border-color);
     --tw-prose-td-borders: var(--border-color);
   }
+  .prose-theme p {
+    line-height: 1.4 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+  .prose-theme ul, .prose-theme ol {
+    line-height: 1.4;
+  }
+  .prose-theme li {
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
+  }
 }
 
 [data-theme='dark'] {

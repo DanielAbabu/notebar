@@ -19,7 +19,9 @@
     "permissions": [
         "sidePanel",
         "storage",
-        "unlimitedStorage"
+        "unlimitedStorage",
+        "alarms",
+        "notifications"
     ],
     "side_panel": {
         "default_path": "index.html"

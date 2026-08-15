@@ -257,6 +257,20 @@ export default function App() {
   }, []);
 
   /**
+   * Helper to sync Chrome Alarms based on task state
+   */
+  const updateAlarm = (task: Task) => {
+    if (typeof chrome !== 'undefined' && chrome.alarms) {
+      if (task.hasReminder && !task.completed && task.dueDate) {
+        const time = new Date(task.dueDate).getTime();
+        chrome.alarms.create(task.id, { when: time });
+      } else {
+        chrome.alarms.clear(task.id);
+      }
+    }
+  };
+
+  /**
    * Toggles task completion status and syncs with note checkboxes if applicable.
    */
   const toggleTask = (id: string) => {
@@ -286,6 +300,7 @@ export default function App() {
         }
         return note;
       }));
+      toast.success(task.completed ? 'Task unchecked' : 'Task completed');
     } else {
       setTasks(tasks.map(t => {
         if (t.id === id) {
@@ -298,10 +313,17 @@ export default function App() {
         }
         return t;
       }));
+      
+      const updatedTask = tasks.find(t => t.id === id);
+      if (updatedTask) {
+          updateAlarm({ ...updatedTask, completed: !updatedTask.completed });
+      }
+      
+      const isNowCompleted = !task?.completed;
     }
   };
 
-  const addTask = (taskData: { text: string, priority: 'HIGH' | 'MED' | 'LOW', dueDate?: string }) => {
+  const addTask = (taskData: { text: string, priority: 'HIGH' | 'MED' | 'LOW', dueDate: string, hasReminder: boolean }) => {
     const newTask: Task = {
       id: crypto.randomUUID(),
       ...taskData,
@@ -309,10 +331,18 @@ export default function App() {
       createdAt: Date.now(),
     };
     setTasks([newTask, ...tasks]);
+    updateAlarm(newTask);
   };
 
   const updateTask = (id: string, taskData: Partial<Task>) => {
-    setTasks(tasks.map(t => t.id === id ? { ...t, ...taskData } : t));
+    setTasks(tasks.map(t => {
+      if (t.id === id) {
+        const updated = { ...t, ...taskData };
+        updateAlarm(updated);
+        return updated;
+      }
+      return t;
+    }));
   };
 
   const deleteTask = useCallback((id: string) => {
@@ -337,6 +367,9 @@ export default function App() {
       }));
     }
     setTasks(prev => prev.filter(t => t.id !== id));
+    if (typeof chrome !== 'undefined' && chrome.alarms) {
+      chrome.alarms.clear(id);
+    }
   }, [tasks, setTasks, setNotes]);
 
   /**

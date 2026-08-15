@@ -66,7 +66,7 @@ export function NoteEditor({ note, onUpdate, onBack, onArchive, onExport, onTogg
         autofocus: (note?.title || '').trim() ? 'end' : false,
         editorProps: {
             attributes: {
-                class: 'w-full flex-1 bg-transparent focus:outline-none text-base leading-relaxed theme-text min-h-[500px] prose prose-theme max-w-none',
+                class: 'w-full flex-1 bg-transparent focus:outline-none text-base leading-snug theme-text min-h-[500px] prose prose-theme max-w-none',
             },
         },
         onUpdate: () => scheduleSave(),

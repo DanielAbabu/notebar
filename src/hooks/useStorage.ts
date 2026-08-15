@@ -67,6 +67,18 @@ export function useStorage() {
         init();
     }, []);
 
+    // Listen for background script storage changes
+    useEffect(() => {
+        if (typeof chrome === 'undefined' || !chrome.storage) return;
+        const handleStorageChange = (changes: { [key: string]: chrome.storage.StorageChange }) => {
+            if (changes.qn_tasks && changes.qn_tasks.newValue) {
+                setTasks(changes.qn_tasks.newValue as Task[]);
+            }
+        };
+        chrome.storage.onChanged.addListener(handleStorageChange);
+        return () => chrome.storage.onChanged.removeListener(handleStorageChange);
+    }, []);
+
     // Sync Note Checkboxes to Tasks
     useEffect(() => {
         if (!isLoaded) return;

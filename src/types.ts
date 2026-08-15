@@ -17,6 +17,7 @@ export interface Task {
   dueDate?: string;
   noteId?: string;
   noteTitle?: string;
+  hasReminder?: boolean;
 }
 
 export interface Drawing {
