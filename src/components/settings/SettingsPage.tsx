@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { toast } from 'sonner';
-import { Palette, Download, Plus, ChevronRight, ChevronLeft, CheckCircle2, Archive, Type } from 'lucide-react';
+import { Palette, Download, Plus, ChevronRight, ChevronLeft, CheckCircle2, Archive, Type, Heart } from 'lucide-react';
 import { Note, Task, Theme, FontChoice } from '../../types';
 import { StorageExportSchema } from '../../lib/schema';
 import { noteToMarkdown } from '../../lib/markdown';
@@ -54,7 +54,7 @@ export function SettingsPage({ notes, tasks, currentTheme, setTheme, setNotes, s
         const data = {
             app: 'NoteBar',
             signature: 'NB_SIG_8291',
-            version: '1.1.0',
+            version: '2.1.0',
             exportDate: new Date().toISOString(),
             payload: { notes, tasks }
         };
@@ -187,6 +187,24 @@ export function SettingsPage({ notes, tasks, currentTheme, setTheme, setNotes, s
                                 </div>
                             </button>
 
+                            <a
+                                href="https://chromewebstore.google.com/detail/NoteBar/cilnoeoidokldchckigcohjgdfhmmehp/reviews"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="w-full flex items-center justify-between p-5 theme-card rounded-2xl border theme-border hover:border-theme-text/30 transition-all group"
+                            >
+                                <div className="flex items-center gap-4">
+                                    <div className="w-10 h-10 rounded-xl bg-theme-text/5 flex items-center justify-center">
+                                        <Heart className="w-5 h-5 text-red-500" />
+                                    </div>
+                                    <div className="text-left">
+                                        <h4 className="text-sm font-bold theme-text">Rate NoteBar</h4>
+                                        <p className="text-[11px] theme-text-muted">Rate it if u love it!</p>
+                                    </div>
+                                </div>
+                                <ChevronRight className="w-4 h-4 theme-text-muted group-hover:theme-text transition-colors" />
+                            </a>
+
                             <div className="grid grid-cols-3 gap-2">
                                 <button
                                     onClick={handleExportData}
@@ -225,8 +243,8 @@ export function SettingsPage({ notes, tasks, currentTheme, setTheme, setNotes, s
                             </div>
                         </div>
 
-                        <p className="text-[10px] theme-text-muted italic px-2 text-center">
-                            Version 1.1.0 • Professional Note-Taking Sidebar
+                        <p className="text-[14px] theme-text-muted italic px-2 mt-4 text-center">
+                            Version 2.1.0 • Made with love by <a href="https://www.linkedin.com/in/danielababu/" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-600 transition-colors font-semibold">Daniel Ababu</a>.
                         </p>
                     </motion.div>
                 ) : (

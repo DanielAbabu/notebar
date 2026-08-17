@@ -248,9 +248,6 @@ export function NoteEditor({ note, onUpdate, onBack, onArchive, onExport, onTogg
                         <button onClick={setLink} title="Link" className={`p-2 hover:theme-card rounded-lg transition-colors ${editor.isActive('link') ? 'theme-text bg-theme-text/10' : ''}`}>
                             <LinkIcon className="w-4 h-4" />
                         </button>
-                        <button onClick={() => editor.chain().focus().toggleCodeBlock().run()} title="Code Block" className={`p-2 hover:theme-card rounded-lg transition-colors ${editor.isActive('codeBlock') ? 'theme-text bg-theme-text/10' : ''}`}>
-                            <Code className="w-4 h-4" />
-                        </button>
                         <button onClick={() => fileInputRef.current?.click()} title="Insert Image" className="p-2 hover:theme-card rounded-lg transition-colors theme-text-muted hover:theme-text">
                             <ImageIcon className="w-4 h-4" />
                         </button>

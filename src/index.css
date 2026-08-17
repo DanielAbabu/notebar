@@ -27,8 +27,14 @@
 }
 
 @layer base {
+  :root {
+    --font-main: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  }
+
   body {
-    font-family: var(--font-main, "Outfit", ui-sans-serif, system-ui, sans-serif);
+    font-family: var(--font-main) !important;
+    color: var(--text-main) !important;
+    background-color: var(--bg-main) !important;
     @apply antialiased transition-colors duration-300;
   }
 
@@ -123,6 +129,22 @@
     --tw-prose-th-borders: var(--border-color);
     --tw-prose-td-borders: var(--border-color);
   }
+  .prose-theme h1,
+  .prose-theme h2,
+  .prose-theme h3,
+  .prose-theme h4,
+  .prose-theme h5,
+  .prose-theme h6,
+  .prose-theme strong,
+  .prose-theme b,
+  .prose-theme a,
+  .prose-theme code,
+  .prose-theme blockquote {
+    color: var(--text-main) !important;
+  }
+  .prose-theme blockquote {
+    border-left-color: var(--border-color) !important;
+  }
   .prose-theme p {
     line-height: 1.4 !important;
     margin-top: 0 !important;
@@ -138,7 +160,6 @@
 }
 
 [data-theme='dark'] {
-  @apply bg-[#0B0F19] text-[#F9FAFB];
   --bg-main: #0B0F19;
   --bg-card: #111827;
   --bg-accent: #1F2937;
@@ -148,7 +169,6 @@
 }
 
 [data-theme='light'] {
-  @apply bg-[#F9FAFB] text-[#111827];
   --bg-main: #F9FAFB;
   --bg-card: #FFFFFF;
   --bg-accent: #F3F4F6;
@@ -158,7 +178,6 @@
 }
 
 [data-theme='pink'] {
-  @apply bg-[#FFF1F2] text-[#881337];
   --bg-main: #FFF1F2;
   --bg-card: #FFFFFF;
   --bg-accent: #FFE4E6;
@@ -168,7 +187,6 @@
 }
 
 [data-theme='blue'] {
-  @apply bg-[#F0F9FF] text-[#0C4A6E];
   --bg-main: #F0F9FF;
   --bg-card: #FFFFFF;
   --bg-accent: #E0F2FE;
@@ -178,7 +196,6 @@
 }
 
 [data-theme='green'] {
-  @apply bg-[#F0FDF4] text-[#14532D];
   --bg-main: #F0FDF4;
   --bg-card: #FFFFFF;
   --bg-accent: #DCFCE7;

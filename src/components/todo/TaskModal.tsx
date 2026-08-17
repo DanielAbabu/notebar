@@ -92,15 +92,15 @@ export function TaskModal({ onClose, onSave, initialData }: TaskModalProps) {
                                 Desktop Reminder
                             </label>
                         </div>
-                        <button 
-                            type="button" 
+                        <button
+                            type="button"
                             onClick={() => setHasReminder(!hasReminder)}
-                            className={`w-9 h-5 rounded-full relative transition-colors ${hasReminder ? 'bg-theme-text' : 'bg-black/10 dark:bg-white/10'}`}
+                            className={`w-9 h-5 rounded-full relative transition-colors border ${hasReminder ? 'bg-black border-black' : 'bg-gray-400 border-gray-400'}`}
                         >
-                            <span className={`absolute top-0.5 left-0.5 w-4 h-4 rounded-full transition-transform ${hasReminder ? 'bg-theme-bg translate-x-4' : 'bg-white/50 translate-x-0'}`} />
+                            <span className={`absolute top-[1px] left-[1px] w-4 h-4 rounded-full bg-white transition-transform shadow-sm ${hasReminder ? 'translate-x-4' : 'translate-x-0'}`} />
                         </button>
                     </div>
-                    </div>
+                </div>
                 <button
                     type="submit"
                     disabled={!text.trim() || !dueDate}

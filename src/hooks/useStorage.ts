@@ -5,20 +5,52 @@ import { storage } from '../lib/storage';
 export const INITIAL_NOTES: Note[] = [
     {
         id: 'welcome',
-        title: 'Welcome to NoteBar 📝',
-        content: `<p>Welcome! NoteBar is designed for fast, beautiful note-taking directly in your side panel.</p>
-        <p><strong>Getting started:</strong></p>
+        title: 'Welcome to NoteBar 2.1.0 🚀',
+        content: `<h2>Your Personal Side Panel Productivity Hub</h2>
+        <p>Welcome! NoteBar is designed for fast, beautiful note-taking directly in your Chrome side panel. Here is a complete guide to everything you can do.</p>
+        
+        <h3>📝 Note-Taking & Organization</h3>
         <ul>
-          <li><p><strong>Rich text:</strong> use the toolbar to add headings, bold, italics, and lists.</p></li>
-          <li><p><strong>Interactive tasks:</strong> add checkboxes in your notes and they automatically appear in your To-Do list.</p></li>
-          <li><p><strong>Pinning:</strong> click the pin icon to keep important notes at the top.</p></li>
-          <li><p><strong>Drawing:</strong> sketch quick diagrams or doodles in the new Draw tab.</p></li>
-          <li><p><strong>Customization:</strong> change themes in the Settings tab to match your aesthetic.</p></li>
+          <li><p><strong>Rich Text Editing:</strong> Use the toolbar to add headings, bold, italics, lists, and links.</p></li>
+          <li><p><strong>Web Clipper:</strong> Highlight any text on a webpage, right-click, and select "Save to NoteBar" to instantly clip it alongside the page URL! You don't even need the side panel open.</p></li>
+          <li><p><strong>Pinning:</strong> Click the pin icon in the corner of a note to keep important notes anchored at the top.</p></li>
+          <li><p><strong>Archiving:</strong> Don't want to delete a note? Archive it! You can view and restore archived notes and sketches at any time.</p></li>
+        </ul>
+
+        <h3>✅ Interactive Tasks</h3>
+        <ul>
+          <li><p><strong>Syncing Tasks:</strong> Add checkboxes inside your notes using the toolbar. They automatically sync to your global To-Do list!</p></li>
+          <li><p><strong>Standalone Tasks:</strong> Add tasks directly in the To-Do tab with High, Medium, or Low priorities.</p></li>
+          <li><p><strong>Due Dates & Reminders:</strong> Set due dates and times for tasks. NoteBar will send you a desktop notification when a task is due.</p></li>
+          <li><p><strong>Auto-Cleanup:</strong> Completed tasks are automatically cleared after 24 hours to keep your list pristine.</p></li>
         </ul>
         <p><strong>Try it out:</strong></p>
         <ul data-type="taskList"><li data-type="taskItem" data-checked="false"><label><input type="checkbox"><span></span></label><div><p>Check this task to see it sync with your To-Do list!</p></div></li></ul>
-        <p>⚠️ <strong>Pro tip:</strong> export your data from Settings before removing the extension, so you never lose your notes.</p>
-        <p><em>Everything is stored locally in your browser. Have fun taking notes!</em></p>`,
+
+        <h3>🎨 Drawing & Sketching</h3>
+        <ul>
+          <li><p><strong>Blank Canvas:</strong> Switch to the Draw tab to sketch out quick diagrams, wireframes, or doodles.</p></li>
+          <li><p><strong>Colors & Strokes:</strong> Choose from an infinite color palette and adjustable stroke widths.</p></li>
+          <li><p><strong>Infinite Undo:</strong> Made a mistake? Use the undo and redo buttons freely.</p></li>
+        </ul>
+
+        <h3>⚙️ Settings & Customization</h3>
+        <ul>
+          <li><p><strong>Themes:</strong> Choose between beautiful light and dark modes (Alabaster, Obsidian) or vibrant colors (Rosé, Nord, Evergreen).</p></li>
+          <li><p><strong>Typography:</strong> Switch between clean Sans, elegant Serif, or technical Monospace fonts.</p></li>
+          <li><p><strong>Data Export:</strong> Export all your notes as a Markdown file, export a single note as HTML, or download a full JSON backup of your entire workspace.</p></li>
+        </ul>
+
+        <h3>⚡ Keyboard Shortcuts</h3>
+        <ul>
+          <li><p><strong>Cmd/Ctrl + K:</strong> Open the Command Palette to quickly search for or create anything.</p></li>
+          <li><p><strong>Cmd/Ctrl + N:</strong> Create a new note instantly.</p></li>
+          <li><p><strong>Cmd/Ctrl + Shift + T:</strong> Add a new task.</p></li>
+          <li><p><strong>Esc:</strong> Close modals, editors, or the command palette.</p></li>
+        </ul>
+
+        <p>⚠️ <strong>Privacy First:</strong> Everything you write or draw is stored 100% locally in your browser. We have no servers and collect no data.</p>
+        <p><em>Have fun being productive! Made with ❤️ by Daniel Ababu.</em></p>`,
         lastEdited: Date.now(),
         isPinned: true,
     }
@@ -35,6 +67,7 @@ export function useStorage() {
     const [drawings, setDrawings] = useState<Drawing[]>([]);
     const [font, setFont] = useState<FontChoice>('outfit');
     const [isLoaded, setIsLoaded] = useState(false);
+    const [syncEnabled, setSyncEnabled] = useState(false);
     const isInitialLoad = useRef(true);
 
     // Load initial data
@@ -43,7 +76,6 @@ export function useStorage() {
             const data = await storage.getAll();
 
             // Only use INITIAL_DATA if the key was completely missing (null)
-            // If it's an empty array, it means the user deleted all items and we should respect that
             if (data.qn_notes !== null) setNotes(data.qn_notes);
             else setNotes(INITIAL_NOTES);
 
